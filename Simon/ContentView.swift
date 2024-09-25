@@ -13,7 +13,9 @@ struct ContentView: View {
     @State private var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     @State private var index = 0
     @State private var sequence: [Int] = []
+    @State private var userInput: [Int] = []
     @State private var startGame = false
+    @State private var gameOver = false
     var body: some View {
         VStack {
             Text("Simon")
@@ -23,24 +25,24 @@ struct ContentView: View {
                 colorDisplay[0]
                     .opacity(flash[0] ? 1 : 0.4)
                     .onTapGesture {
-                        flashColorDisplay(index: 0)
+                        handleUserInput(index: 0)
                     }
                 colorDisplay[1]
                     .opacity(flash[1] ? 1 : 0.4)
                     .onTapGesture {
-                        flashColorDisplay(index: 1)
+                        handleUserInput(index: 1)
                     }
             }
             HStack {
                 colorDisplay[2]
                     .opacity(flash[2] ? 1 : 0.4)
                     .onTapGesture {
-                        flashColorDisplay(index: 2)
+                        handleUserInput(index: 2)
                     }
                 colorDisplay[3]
                     .opacity(flash[3] ? 1 : 0.4)
                     .onTapGesture {
-                        flashColorDisplay(index: 3)
+                        handleUserInput(index: 3)
                     }
             }
             Button(action: startNewGame) {
@@ -51,16 +53,25 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+            .padding()
+            if gameOver {
+                Text("Game Over")
+                    .font(.title)
+                    .foregroundColor(.red)
+            }
         }
         .padding()
         .preferredColorScheme(.dark)
         .onReceive(timer) { _ in
-            if index < sequence.count {
-                flashColorDisplay(index: sequence[index])
-                index += 1
-            } else {
-                index = 0
-                sequence.append(Int.random(in: 0...3))
+            if startGame && !gameOver {
+                if index < sequence.count {
+                    flashColorDisplay(index: sequence[index])
+                    index += 1
+                } else {
+                    index = 0
+                    userInput = []
+                    sequence.append(Int.random(in: 0...3))
+                }
             }
         }
     }
@@ -73,11 +84,33 @@ struct ContentView: View {
     
     func startNewGame() {
         sequence = []
+        userInput = []
         index = 0
         startGame.toggle()
+        gameOver = false
         if startGame {
             sequence.append(Int.random(in: 0...3))
+            startSequence()
         }
+    }
+    
+    func handleUserInput(index: Int) {
+        guard startGame, !gameOver else {return} // guard make it so the code only proceeds under certain conditions
+        userInput.append(index)
+        flashColorDisplay(index: index)
+        if userInput.last != sequence[userInput.count - 1] {
+            gameOver = true
+        } else if userInput.count == sequence.count {
+            userInput = []
+            self.index = 0
+            sequence.append(Int.random(in: 0...3))
+            startSequence()
+        }
+    }
+    
+    func startSequence() {
+        index = 0
+        timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
     }
 }
 
