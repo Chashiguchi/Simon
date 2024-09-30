@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var userInput: [Int] = []
     @State private var startGame = false
     @State private var gameOver = false
+    @State private var isFlashingSequence = false
     var body: some View {
         VStack {
             Text("Simon")
@@ -63,14 +64,14 @@ struct ContentView: View {
         .padding()
         .preferredColorScheme(.dark)
         .onReceive(timer) { _ in
-            if startGame && !gameOver {
+            if startGame && !gameOver && isFlashingSequence {
                 if index < sequence.count {
                     flashColorDisplay(index: sequence[index])
                     index += 1
                 } else {
                     index = 0
                     userInput = []
-                    sequence.append(Int.random(in: 0...3))
+                    isFlashingSequence = false
                 }
             }
         }
@@ -90,12 +91,13 @@ struct ContentView: View {
         gameOver = false
         if startGame {
             sequence.append(Int.random(in: 0...3))
-            startSequence()
+            isFlashingSequence = true
+            startFlashingSequence()
         }
     }
     
     func handleUserInput(index: Int) {
-        guard startGame, !gameOver else {return} // guard make it so the code only proceeds under certain conditions
+        guard startGame, !gameOver, !isFlashingSequence else {return} // guard make it so the code only proceeds under certain conditions
         userInput.append(index)
         flashColorDisplay(index: index)
         if userInput.last != sequence[userInput.count - 1] {
@@ -103,14 +105,19 @@ struct ContentView: View {
         } else if userInput.count == sequence.count {
             userInput = []
             self.index = 0
-            sequence.append(Int.random(in: 0...3))
-            startSequence()
+            addNewColorToSequence()
+            isFlashingSequence = true
+            startFlashingSequence()
         }
     }
     
-    func startSequence() {
-        index = 0
-        timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
+    func addNewColorToSequence() {
+        sequence.append(Int.random(in: 0...3))
+    }
+    
+    func startFlashingSequence() {
+        isFlashingSequence = true
+        timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     }
 }
 
