@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import AVFoundation
+import UIKit
 
 struct ContentView: View {
     @State private var colorDisplay = [ColorDisplay(color: .green),ColorDisplay(color: .red),ColorDisplay(color: .yellow),ColorDisplay(color: .blue)]
@@ -17,11 +19,15 @@ struct ContentView: View {
     @State private var startGame = false
     @State private var gameOver = false
     @State private var isFlashingSequence = false
+    var audioPlayer: AVAudioPlayer?
     var body: some View {
         VStack {
             Text("Simon")
-                .font(.system(size: 72))
+                .font(.custom("Impact", size: 72))
                 .padding(.top)
+            Spacer()
+            Text("Score: \(sequence.count)")
+                .font(.custom("Impact", size: 36))
             HStack {
                 colorDisplay[0]
                     .opacity(flash[0] ? 1 : 0.4)
@@ -46,6 +52,7 @@ struct ContentView: View {
                         handleUserInput(index: 3)
                     }
             }
+            Spacer()
             Button(action: startNewGame) {
                 Text(startGame ? "Restart" : "Start Game")
                     .font(.system(size: 24))

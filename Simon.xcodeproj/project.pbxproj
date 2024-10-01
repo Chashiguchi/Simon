@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		68A7E2F52CAAED400041A6B3 /* 0.wav in Resources */ = {isa = PBXBuildFile; fileRef = 68A7E2F42CAAED400041A6B3 /* 0.wav */; };
+		68A7E2F72CAAED4B0041A6B3 /* 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 68A7E2F62CAAED4B0041A6B3 /* 1.wav */; };
+		68A7E2FD2CAAED570041A6B3 /* Lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 68A7E2FB2CAAED570041A6B3 /* Lose.wav */; };
+		68A7E2FE2CAAED570041A6B3 /* Start.wav in Resources */ = {isa = PBXBuildFile; fileRef = 68A7E2FC2CAAED570041A6B3 /* Start.wav */; };
+		68A7E2FF2CAAED570041A6B3 /* 3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 68A7E2F92CAAED570041A6B3 /* 3.wav */; };
+		68A7E3002CAAED570041A6B3 /* 2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 68A7E2F82CAAED570041A6B3 /* 2.wav */; };
+		68A7E3012CAAED570041A6B3 /* HighScore.wav in Resources */ = {isa = PBXBuildFile; fileRef = 68A7E2FA2CAAED570041A6B3 /* HighScore.wav */; };
+		68A7E3032CAAF19B0041A6B3 /* impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A7E3022CAAF19B0041A6B3 /* impact.ttf */; };
 		68F360E92C9C6D4100D4B75E /* SimonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F360E82C9C6D4100D4B75E /* SimonApp.swift */; };
 		68F360EB2C9C6D4100D4B75E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F360EA2C9C6D4100D4B75E /* ContentView.swift */; };
 		68F360ED2C9C6D4200D4B75E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68F360EC2C9C6D4200D4B75E /* Assets.xcassets */; };
@@ -34,6 +42,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		68A7E2F42CAAED400041A6B3 /* 0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 0.wav; sourceTree = "<group>"; };
+		68A7E2F62CAAED4B0041A6B3 /* 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1.wav; sourceTree = "<group>"; };
+		68A7E2F82CAAED570041A6B3 /* 2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 2.wav; sourceTree = "<group>"; };
+		68A7E2F92CAAED570041A6B3 /* 3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 3.wav; sourceTree = "<group>"; };
+		68A7E2FA2CAAED570041A6B3 /* HighScore.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = HighScore.wav; sourceTree = "<group>"; };
+		68A7E2FB2CAAED570041A6B3 /* Lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Lose.wav; sourceTree = "<group>"; };
+		68A7E2FC2CAAED570041A6B3 /* Start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Start.wav; sourceTree = "<group>"; };
+		68A7E3022CAAF19B0041A6B3 /* impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = impact.ttf; sourceTree = "<group>"; };
 		68F360E52C9C6D4100D4B75E /* Simon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Simon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68F360E82C9C6D4100D4B75E /* SimonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimonApp.swift; sourceTree = "<group>"; };
 		68F360EA2C9C6D4100D4B75E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +115,14 @@
 				68F360EA2C9C6D4100D4B75E /* ContentView.swift */,
 				68F360EC2C9C6D4200D4B75E /* Assets.xcassets */,
 				68F360EE2C9C6D4200D4B75E /* Simon.entitlements */,
+				68A7E2F42CAAED400041A6B3 /* 0.wav */,
+				68A7E2F62CAAED4B0041A6B3 /* 1.wav */,
+				68A7E2F82CAAED570041A6B3 /* 2.wav */,
+				68A7E2F92CAAED570041A6B3 /* 3.wav */,
+				68A7E2FA2CAAED570041A6B3 /* HighScore.wav */,
+				68A7E2FB2CAAED570041A6B3 /* Lose.wav */,
+				68A7E2FC2CAAED570041A6B3 /* Start.wav */,
+				68A7E3022CAAF19B0041A6B3 /* impact.ttf */,
 				68F360EF2C9C6D4200D4B75E /* Preview Content */,
 			);
 			path = Simon;
@@ -233,7 +257,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68A7E3032CAAF19B0041A6B3 /* impact.ttf in Resources */,
+				68A7E2F52CAAED400041A6B3 /* 0.wav in Resources */,
+				68A7E2FD2CAAED570041A6B3 /* Lose.wav in Resources */,
+				68A7E2FE2CAAED570041A6B3 /* Start.wav in Resources */,
+				68A7E2FF2CAAED570041A6B3 /* 3.wav in Resources */,
+				68A7E3002CAAED570041A6B3 /* 2.wav in Resources */,
+				68A7E3012CAAED570041A6B3 /* HighScore.wav in Resources */,
 				68F360F12C9C6D4200D4B75E /* Preview Assets.xcassets in Resources */,
+				68A7E2F72CAAED4B0041A6B3 /* 1.wav in Resources */,
 				68F360ED2C9C6D4200D4B75E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
