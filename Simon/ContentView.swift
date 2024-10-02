@@ -57,7 +57,7 @@ struct ContentView: View {
                     }
             }
             Spacer()
-            Button(action: startNewGame) {
+            Button(action: startNewGame) { // toggles between Start game and restart
                 Text(startGame ? "Restart" : "Start Game")
                     .font(.system(size: 24))
                     .padding()
@@ -87,20 +87,20 @@ struct ContentView: View {
             }
         }
     }
-     func flashColorDisplay(index: Int) {
+    func flashColorDisplay(index: Int) { // makes the button light up and turn off
         flash[index].toggle()
         withAnimation(.easeInOut(duration: 0.5)) {
             flash[index].toggle()
         }
     }
     
-    func startNewGame() {
+    func startNewGame() { // starts the game by setting game over to false and set index to 0
         sequence = []
         userInput = []
         index = 0
         startGame.toggle()
         gameOver = false
-        if startGame {
+        if startGame { // when the game is started play a random color and play the sound
             sequence.append(Int.random(in: 0...3))
             isFlashingSequence = true
             startFlashingSequence()
@@ -108,16 +108,16 @@ struct ContentView: View {
         }
     }
     
-    func handleUserInput(index: Int) {
+    func handleUserInput(index: Int) { // makes user repeat the sequence to continue
         guard startGame, !gameOver, !isFlashingSequence else {return} // guard make it so the code only proceeds under certain conditions
         userInput.append(index)
-        SoundManager.shared.playSound(named: "\(index)")
+        SoundManager.shared.playSound(named: "\(index)") // plays the sound for the colored buttons
         flashColorDisplay(index: index)
-        if userInput.last != sequence[userInput.count - 1] {
+        if userInput.last != sequence[userInput.count - 1] { // ends game when you make a mistake
             gameOver = true
-            SoundManager.shared.playSound(named: "Lose")
-            updateHighScore()
-        } else if userInput.count == sequence.count {
+            SoundManager.shared.playSound(named: "Lose") // plays the sound for when you lose
+            updateHighScore() // updates high score after the game ends
+        } else if userInput.count == sequence.count { // adds random color to the sequence to continue
             userInput = []
             self.index = 0
             addNewColorToSequence()
@@ -153,7 +153,7 @@ struct ColorDisplay: View {
     }
 }
 
-class SoundManager {
+class SoundManager { // made class to play sounds
     static let shared = SoundManager()
     var audioPlayer: AVAudioPlayer?
     func playSound(named soundName: String) {
