@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var flash = [false, false, false, false]
     @State private var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     @State private var index = 0
+    @State private var highScore = 0
     @State private var sequence: [Int] = []
     @State private var userInput: [Int] = []
     @State private var startGame = false
@@ -28,6 +29,9 @@ struct ContentView: View {
             Spacer()
             Text("Score: \(sequence.count)")
                 .font(.custom("Impact", size: 36))
+                .padding()
+            Text("High Score: \(highScore)")
+                .font(.custom("Impact", size: 24))
             HStack {
                 colorDisplay[0]
                     .opacity(flash[0] ? 1 : 0.4)
@@ -83,7 +87,7 @@ struct ContentView: View {
             }
         }
     }
-    func flashColorDisplay(index: Int) {
+     func flashColorDisplay(index: Int) {
         flash[index].toggle()
         withAnimation(.easeInOut(duration: 0.5)) {
             flash[index].toggle()
@@ -100,15 +104,19 @@ struct ContentView: View {
             sequence.append(Int.random(in: 0...3))
             isFlashingSequence = true
             startFlashingSequence()
+            SoundManager.shared.playSound(named: "Start")
         }
     }
     
     func handleUserInput(index: Int) {
         guard startGame, !gameOver, !isFlashingSequence else {return} // guard make it so the code only proceeds under certain conditions
         userInput.append(index)
+        SoundManager.shared.playSound(named: "\(index)")
         flashColorDisplay(index: index)
         if userInput.last != sequence[userInput.count - 1] {
             gameOver = true
+            SoundManager.shared.playSound(named: "Lose")
+            updateHighScore()
         } else if userInput.count == sequence.count {
             userInput = []
             self.index = 0
@@ -126,6 +134,13 @@ struct ContentView: View {
         isFlashingSequence = true
         timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     }
+    
+    func updateHighScore() {
+        if sequence.count > highScore {
+            highScore = sequence.count
+            SoundManager.shared.playSound(named: "HighScore")
+        }
+    }
 }
 
 struct ColorDisplay: View {
@@ -135,6 +150,20 @@ struct ColorDisplay: View {
             .fill(color)
             .frame(width: 100, height: 100)
             .padding()
+    }
+}
+
+class SoundManager {
+    static let shared = SoundManager()
+    var audioPlayer: AVAudioPlayer?
+    func playSound(named soundName: String) {
+        guard let url = Bundle.main.url(forResource: soundName, withExtension: "wav") else { return }
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.play()
+        } catch {
+            print("Error playing sound: \(error.localizedDescription)")
+        }
     }
 }
 
